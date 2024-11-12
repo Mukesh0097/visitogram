@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dotraci Translator</title>
+    <style>
+        :root {
+    --primary-color: #ffdb0d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+nav {
+    background-color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+main {
+    margin: auto;
+    padding: 1rem;
+    max-width: 600px;
+}
+
+textarea {
+    display: block;
+    font-size: larger;
+    width: 100%;
+    min-height: 15vh;
+    padding: 0.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+
+button {
+    display: block;
+    margin: 1rem auto;
+    height: 50px;
+    width: 100px;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: black;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+
+.label {
+    font-size: larger;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+#Translation {
+    width: 100%;
+    height: 10vh;
+    padding: 1rem;
+    font-size: larger;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+
+footer {
+    background-color: var(--primary-color);
+    text-align: center;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    padding-bottom: 0.5rem;
+    font-style: italic;
+}
+
+footer div {
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+footer p {
+    font-size: large;
+    max-width: 500px;
+    padding: 0.5rem;
+    margin: auto;
+}
+        
+    </style>
+</head>
+<body>
+    <nav>
+        Dotraki talk
+    </nav>
+
+    <main>
+
+        <textarea id="Input" placeholder="Enter some text to translate to dotraki  language:"></textarea>
+
+        <button id="btn-translate" onclick=Translator()>Translate</button>
+
+        <div class="label">Translated text: 👇</div>
+        <div id="Translation" ></div>
+
+    </main>
+
+    <footer>
+        <div>About</div>
+        <p>Convert from English to dotraki speak. this is for fun</p>
+    </footer>
+    <!-- <div class="main">
+    <div class="container">
+        <input type="text" name="valuetaker" id="Input" placeholder="I am mukesh">
+        <button type="submit" onclick=Translator()>Translate</button>
+        <div class="textArea">
+            <textarea name="" id="Translation" cols="60" rows="10"></textarea>
+        </div>
+    </div>
+</div> -->
+
+    <script>
+        const Input = document.querySelector("#Input");
+        const textArea = document.querySelector("#Translation");
+        let URL = "https://api.funtranslations.com/translate/dothraki.json"
+
+        function serverUrl(text){
+            return URL + "?" +"text=" + text;
+        }
+
+        function handler(err){
+            alert(err);
+        }
+
+        function Translator(){
+
+
+            fetch(serverUrl(Input.value))
+            .then(response => response.json())
+            .then(json =>{
+               textArea.innerHTML =json.contents.translated;
+            })
+            .catch(handler)
+
+            
+
+        }
+
+    </script>
+</body>
+</html>
